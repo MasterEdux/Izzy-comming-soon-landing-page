@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#5125AE">
+<meta name="description" content="Izzy.com.gt está por llegar. Cotiza tus productos de Amazon con nosotros y recíbelos hasta la puerta de tu casa.">
+<title>Próximamente | Izzy.com.gt</title>
+<style>
+:root{
+  --purple:#6D3BD1;--deep:#4a2299;--darker:#35176f;--lav:#d9cdf5;--navy:#10182D;--muted:#4f4a66;
+  --green:#16a34a;--green-bg:#dcfce7;--green-line:#86efac;--green-ink:#14532d;
+  /* escala tipográfica */
+  --fs-xs:.8rem;--fs-sm:.95rem;--fs-md:1.125rem;--fs-h1:clamp(2.6rem,5.4vw,4.9rem);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--navy);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(ellipse at 8% 5%,#efe8ff 0,transparent 38%),
+    radial-gradient(ellipse at 100% 85%,#b9a2f0 0,transparent 42%),
+    linear-gradient(135deg,#e6dcfa,#d3c3f4 50%,#bfa9ec);
+  overflow-x:hidden;
+}
+.wrap{min-height:calc(100vh - 40px);max-width:1360px;margin:auto;padding:26px clamp(20px,5vw,72px) 22px;display:flex;flex-direction:column}
+
+/* Header */
+.top{display:flex;justify-content:flex-start;align-items:center;gap:16px}
+.logo{width:min(150px,38vw);height:auto;display:block}
+
+/* Burbujas (pill) unificadas */
+.pill{display:inline-flex;align-items:center;gap:10px;font-size:var(--fs-xs);font-weight:800;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:10px 18px;border:1px solid;line-height:1}
+.pill i{width:9px;height:9px;border-radius:50%;background:currentColor;flex:none;position:relative}
+.pill i:after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid currentColor;opacity:.4;animation:ping 1.8s ease-out infinite}
+.pill.green{color:var(--green-ink);background:var(--green-bg);border-color:var(--green-line)}
+.pill.green i{background:var(--green)}
+.pill.green i:after{border-color:var(--green)}
+@keyframes ping{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+
+/* Hero */
+main{flex:1;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(24px,5vw,70px);padding:clamp(28px,6vh,70px) 0}
+.pill.green{margin-bottom:22px}
+h1{font-size:var(--fs-h1);line-height:1.02;letter-spacing:-.05em;margin:0 0 22px;font-weight:850}
+h1 span{color:var(--purple);display:block}
+.lead{font-size:var(--fs-md);line-height:1.65;color:var(--muted);max-width:540px;margin:0 0 22px}
+.lead strong{color:var(--navy)}
+
+/* Cotiza */
+.quote{display:flex;gap:14px;align-items:flex-start;background:#ffffffa6;border:1px solid #b9a2f0;border-radius:18px;padding:16px 18px;max-width:540px;margin-bottom:26px;font-size:var(--fs-sm);line-height:1.55;color:var(--muted)}
+.quote b{color:var(--deep)}
+.quote .ico{font-size:1.5rem;line-height:1}
+
+/* Botones */
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:800;font-size:var(--fs-sm);padding:15px 24px;border-radius:15px;transition:transform .18s,box-shadow .18s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--purple);color:#fff;box-shadow:0 12px 26px #4a229955}
+.primary:hover{box-shadow:0 16px 32px #4a229977}
+.secondary{color:var(--deep);background:#fff;border:1px solid #b9a2f0}
+
+/* Barra de progreso en construcción */
+.build{max-width:540px}
+.build-head{display:flex;justify-content:space-between;font-size:var(--fs-xs);font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--deep);margin-bottom:9px}
+.bar{height:14px;border-radius:999px;background:#ffffff80;border:1px solid #b9a2f0;overflow:hidden;padding:2px}
+.bar>div{height:100%;width:0;border-radius:999px;background:repeating-linear-gradient(-45deg,#fbbf24 0 12px,#10182D 12px 24px);animation:fill 2.6s .4s cubic-bezier(.2,.8,.2,1) forwards,slide 1s linear infinite;background-size:34px 34px}
+@keyframes fill{to{width:82%}}
+@keyframes slide{to{background-position:34px 0}}
+
+/* Visual: caja + órbita */
+.visual{display:grid;place-items:center}
+.stage{--size:min(500px,86vw);--r:calc(var(--size)/2 - 34px);width:var(--size);aspect-ratio:1;position:relative;display:grid;place-items:center}
+.glow{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,#f5f0ff 0,#c9b6f5 55%,transparent 72%);box-shadow:0 40px 90px #35176f33}
+.track{position:absolute;inset:34px;border-radius:50%;border:1.5px dashed #8d6fdc;opacity:.7}
+.track.inner{inset:20%;border-style:solid;border-color:#b9a2f0;opacity:.5}
+.ring{position:absolute;inset:0;animation:spin 34s linear infinite}
+.item{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a)))}
+.chip{position:absolute;left:0;top:0;translate:-50% -50%;animation:spin 34s linear infinite reverse}
+.chip b{display:flex;align-items:center;justify-content:center;gap:5px;min-width:104px;height:52px;padding:0 16px;background:#fff;border-radius:14px;border:1px solid #d9cdf5;box-shadow:0 10px 24px #35176f33;font-size:1.05rem;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+@keyframes spin{to{transform:rotate(360deg)}}
+.chip img{display:block;width:auto;max-width:none}
+
+.box{position:relative;z-index:2;width:58%;filter:drop-shadow(0 26px 22px #35176f55);animation:bob 5s ease-in-out infinite}
+.box svg{width:100%;height:auto;display:block;overflow:visible}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+.spark{position:absolute;color:var(--purple);font-size:1.6rem;animation:tw 2.4s ease-in-out infinite}
+.s1{top:10%;right:12%}.s2{bottom:12%;left:10%;font-size:1.1rem;animation-delay:.8s}.s3{top:46%;left:2%;font-size:.9rem;animation-delay:1.4s}
+@keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+
+/* Cinta de construcción */
+.tape{background:#fbbf24;color:var(--navy);overflow:hidden;border-bottom:3px solid var(--navy);box-shadow:0 6px 18px #35176f33}
+.tape div{display:flex;width:max-content;animation:marquee 26s linear infinite}
+.tape span{padding:9px 22px;font-size:var(--fs-xs);font-weight:900;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+footer{display:flex;justify-content:space-between;gap:15px;padding-top:22px;color:var(--muted);font-size:var(--fs-xs)}
+footer strong{color:var(--deep)}
+
+@media(max-width:900px){
+  main{grid-template-columns:1fr;gap:20px;padding:30px 0 30px}
+  .visual{order:2}
+  .stage{--size:min(380px,88vw);--r:calc(var(--size)/2 - 28px)}
+  .chip b{min-width:78px;height:40px;font-size:.85rem;padding:0 10px}
+  .chip img{zoom:.75}
+  footer{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.bar>div{width:82%}}
+</style>
+</head>
+<body>
+
+<div class="tape" aria-hidden="true">
+    <div>
+      <span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span><span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span>
+      <span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span><span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span>
+    </div>
+  </div>
+<div class="wrap">
+  <header class="top">
+    <a href="#" aria-label="Izzy.com.gt"><svg class="logo" xmlns="http://www.w3.org/2000/svg" width="356" height="200" viewBox="36 46 356 200"><path transform="translate(40 50) scale(4.933)" d="M4 9.7H9L7 18H10L2.5 30L4 21.5H1ZM3.9 0.3H9.1V5.5H3.9Z" fill="#8B5CF6"></path><path d="M182.60 198L101.80 198L101.80 178.60L154 117.20L102.60 117.20L102.60 97.20L181.60 97.20L181.60 116.60L128.80 178.20L182.60 178.20L182.60 198ZM271.80 198L191 198L191 178.60L243.20 117.20L191.80 117.20L191.80 97.20L270.80 97.20L270.80 116.60L218 178.20L271.80 178.20L271.80 198ZM324.40 242L299 242L323.60 186.80L317.60 186.80L277.40 97.20L303.60 97.20L333.60 165.60L333.60 165.60L362 97.20L387.40 97.20L324.40 242Z" fill="#0F172A"></path></svg></a>
+  </header>
+
+  <main>
+    <section>
+      <div class="pill green"><i></i>Muy pronto en línea: algo bueno está por llegar</div>
+      <h1>Lo que quieres, <span>más cerca con Izzy.</span></h1>
+      <p class="lead">Estamos construyendo una nueva forma de encontrar eso que tanto quieres. Tecnología, cuidado personal y mucho más, todo en un solo lugar.</p>
+
+      <div class="quote">
+        <span class="ico">📦</span>
+        <div><b>¡Cotiza tus productos de Amazon con nosotros!</b> Escríbenos por WhatsApp o Instagram y te los llevamos hasta la puerta de tu casa.</div>
+      </div>
+
+      <div class="ctas">
+        <a class="btn primary" href="https://api.whatsapp.com/send/?phone=50246353422" target="_blank" rel="noopener">Contáctanos por WhatsApp ↗</a>
+        <a class="btn secondary" href="https://www.instagram.com/izzy___com/" target="_blank" rel="noopener">Conoce Izzy</a>
+      </div>
+
+      <div class="build" aria-label="Sitio en construcción">
+        <div class="build-head"><span>🚧 Construyendo Izzy.com.gt</span><span>Casi listo</span></div>
+        <div class="bar"><div></div></div>
+      </div>
+    </section>
+
+    <section class="visual" aria-label="Caja de Izzy rodeada de tiendas como Amazon, eBay, Target, Best Buy y Walmart">
+      <div class="stage">
+        <div class="glow"></div>
+        <div class="track"></div><div class="track inner"></div>
+        <span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">✦</span>
+
+        <div class="box" aria-hidden="true">
+          <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a47bf5"/><stop offset="1" stop-color="#5a2fb8"/></linearGradient>
+              <linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f4de0"/><stop offset="1" stop-color="#3a1a88"/></linearGradient>
+              <linearGradient id="fl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3d3ff"/><stop offset="1" stop-color="#b08cf6"/></linearGradient>
+              <linearGradient id="fr" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdb4fb"/><stop offset="1" stop-color="#9a72ea"/></linearGradient>
+              <linearGradient id="in" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d3bd1"/><stop offset="1" stop-color="#1f0c52"/></linearGradient>
+              <linearGradient id="beam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff7c2" stop-opacity=".95"/><stop offset="1" stop-color="#fff7c2" stop-opacity="0"/></linearGradient>
+              <clipPath id="op"><polygon points="100,70 165,100 100,130 35,100"/></clipPath>
+            </defs>
+            <ellipse cx="100" cy="198" rx="76" ry="9" fill="#35176f" opacity=".3"/>
+            <!-- solapas traseras -->
+            <polygon points="35,100 100,70 92,36 24,66" fill="url(#fl)"/>
+            <polygon points="100,70 165,100 176,66 108,36" fill="url(#fr)"/>
+            <!-- interior -->
+            <polygon points="100,70 165,100 100,130 35,100" fill="url(#in)"/>
+            <g clip-path="url(#op)">
+              <polygon points="35,100 100,70 100,104 35,134" fill="#5a2fb8"/>
+              <polygon points="100,70 165,100 165,134 100,104" fill="#4a2399"/>
+            </g>
+            <!-- luz que sale de la caja -->
+            <polygon points="48,98 100,76 152,98 176,14 24,14" fill="url(#beam)" opacity=".75"/>
+            <ellipse cx="100" cy="100" rx="40" ry="16" fill="#fff" opacity=".45"/><ellipse cx="100" cy="100" rx="22" ry="9" fill="#fff7c2" opacity=".85"/>
+            <!-- estrellas -->
+            <path transform="translate(75 -6) scale(1.05)" d="M22 18h9l-3 12h5L18 50l3-14h-6z" fill="#fde047"/>
+            <path d="M64 44l2.6 6.5 6.5 2.6-6.5 2.6L64 62l-2.6-6.3-6.5-2.6 6.5-2.6z" fill="#fff"/>
+            <path d="M140 40l2.2 5.5 5.5 2.2-5.5 2.2-2.2 5.5-2.2-5.5-5.5-2.2 5.5-2.2z" fill="#fff"/>
+            <!-- caras frontales -->
+            <polygon points="35,100 100,130 100,195 35,165" fill="url(#gl)"/>
+            <polygon points="100,130 165,100 165,165 100,195" fill="url(#gr)"/>
+            <!-- solapas delanteras -->
+            <polygon points="35,100 100,130 100,148 30,117" fill="url(#fl)"/>
+            <polygon points="100,130 165,100 170,117 100,148" fill="url(#fr)"/>
+            <line x1="100" y1="148" x2="100" y2="195" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/>
+            <!-- cara izquierda: marca + etiqueta -->
+            <g transform="matrix(1 .4615 0 1 35 100)">
+              <rect x="5" y="20" width="55" height="34" rx="5" fill="#fff"/>
+              <svg x="9" y="22" width="47" height="30" viewBox="36 46 356 200"><path transform="translate(40 50) scale(4.933)" d="M4 9.7H9L7 18H10L2.5 30L4 21.5H1ZM3.9 0.3H9.1V5.5H3.9Z" fill="#8B5CF6"></path><path d="M182.60 198L101.80 198L101.80 178.60L154 117.20L102.60 117.20L102.60 97.20L181.60 97.20L181.60 116.60L128.80 178.20L182.60 178.20L182.60 198ZM271.80 198L191 198L191 178.60L243.20 117.20L191.80 117.20L191.80 97.20L270.80 97.20L270.80 116.60L218 178.20L271.80 178.20L271.80 198ZM324.40 242L299 242L323.60 186.80L317.60 186.80L277.40 97.20L303.60 97.20L333.60 165.60L333.60 165.60L362 97.20L387.40 97.20L324.40 242Z" fill="#0F172A"></path></svg>
+              <rect x="38" y="57" width="22" height="2" rx="1" fill="#fff" opacity=".45"/>
+              <rect x="44" y="61" width="16" height="2" rx="1" fill="#fff" opacity=".3"/>
+            </g>
+            <!-- cara derecha: este lado arriba -->
+            <g transform="matrix(1 -.4615 0 1 100 130)">
+              <g transform="translate(32 33) scale(.6) translate(-52 -41)" fill="none" stroke="#e9defe" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M46 52V30M40 36l6-6 6 6"/><path d="M58 52V30M52 36l6-6 6 6" opacity=".6"/></g>
+            </g>
+            <polygon points="35,100 100,130 100,195 35,165" fill="none" stroke="#fff" stroke-opacity=".18"/>
+          </svg>
+        </div>
+
+        <div class="ring">
+          <div class="item" style="--a:-90deg"><div class="chip"><b><img src="Logos/web/amazon.png" alt="Amazon" style="height:26px"></b></div></div>
+          <div class="item" style="--a:-18deg"><div class="chip"><b><img src="Logos/web/ebay.png" alt="eBay" style="height:30px"></b></div></div>
+          <div class="item" style="--a:54deg"><div class="chip"><b><img src="Logos/web/target.png" alt="Target" style="height:34px"></b></div></div>
+          <div class="item" style="--a:126deg"><div class="chip"><b><img src="Logos/web/bestbuy.png" alt="Best Buy" style="height:34px"></b></div></div>
+          <div class="item" style="--a:198deg"><div class="chip"><b><img src="Logos/web/walmart.png" alt="Walmart" style="height:22px"></b></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer>
+    <span>© 2026 <strong>Izzy.com.gt</strong></span>
+    <span>Compras que te acercan a lo que quieres.</span>
+  </footer>
+</div>
+</body>
+</html>
