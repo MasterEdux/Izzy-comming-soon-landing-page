@@ -17,7 +17,8 @@ export async function sendSms(e164, text) {
       'Content-Type': 'application/json',
       Authorization: `Basic ${Buffer.from(`${user}:${token}`).toString('base64')}`,
     },
-    body: JSON.stringify({ message: text, tpoa: sender, recipient: [{ msisdn: toMsisdn(e164) }] }),
+    // Sin remitente configurado se omite `tpoa` y labsMobile usa el de la cuenta.
+    body: JSON.stringify({ message: text, ...(sender ? { tpoa: sender } : {}), recipient: [{ msisdn: toMsisdn(e164) }] }),
     signal: AbortSignal.timeout(10_000),
   })
   const body = await res.json().catch(() => ({}))

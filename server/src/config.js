@@ -36,7 +36,7 @@ export const config = {
     url: env.LABSMOBILE_URL || 'https://api.labsmobile.com/json/send',
     user: env.LABSMOBILE_USER || '',
     token: env.LABSMOBILE_TOKEN || '',
-    sender: env.LABSMOBILE_SENDER || 'Izzy',
+    sender: env.LABSMOBILE_SENDER || '', // vacío = remitente por defecto de la cuenta
   },
 
   smtp: {
