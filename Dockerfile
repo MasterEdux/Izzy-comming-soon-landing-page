@@ -1,6 +1,13 @@
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY index.html favicon.svg favicon.png favicon.ico /usr/share/nginx/html/
-COPY social /usr/share/nginx/html/social
-COPY Logos/web /usr/share/nginx/html/Logos/web
-EXPOSE 80
+FROM node:22-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY server/package.json server/package-lock.json ./server/
+RUN cd server && npm ci --omit=dev
+
+COPY server ./server
+COPY web ./web
+
+USER node
+EXPOSE 3000
+CMD ["node", "server/src/server.js"]

@@ -1,0 +1,26 @@
+{
+  "name": "izzy-landing-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --env-file-if-exists=.env src/server.js",
+    "dev:local": "node dev-local.js",
+    "test": "node --test test/flujo.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "fastify": "^5.2.0",
+    "nodemailer": "^6.9.16",
+    "pg": "^8.13.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.2.17"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

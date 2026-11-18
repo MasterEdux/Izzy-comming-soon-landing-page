@@ -111,13 +111,14 @@ footer strong{color:var(--deep)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.bar>div{width:82%}}
 </style>
+<link rel="stylesheet" href="preregistro.css">
 </head>
 <body>
 
 <div class="tape" aria-hidden="true">
     <div>
-      <span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span><span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span>
-      <span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span><span>🚧 En construcción</span><span>Próximamente</span><span>Izzy.com.gt</span><span>Cotiza tus productos de Amazon</span>
+      <span>🚧 En construcción</span><span>Próximamente</span><span>Únete al Club Izzy</span><span>Cupones para los primeros 100</span><span>Cotiza tus productos de Amazon</span><span>Izzy.com.gt</span><span>🚧 En construcción</span><span>Próximamente</span><span>Únete al Club Izzy</span><span>Cupones para los primeros 100</span><span>Cotiza tus productos de Amazon</span><span>Izzy.com.gt</span>
+      <span>🚧 En construcción</span><span>Próximamente</span><span>Únete al Club Izzy</span><span>Cupones para los primeros 100</span><span>Cotiza tus productos de Amazon</span><span>Izzy.com.gt</span><span>🚧 En construcción</span><span>Próximamente</span><span>Únete al Club Izzy</span><span>Cupones para los primeros 100</span><span>Cotiza tus productos de Amazon</span><span>Izzy.com.gt</span>
     </div>
   </div>
 <div class="wrap">
@@ -130,6 +131,20 @@ footer strong{color:var(--deep)}
       <div class="pill green"><i></i>Muy pronto en línea: algo bueno está por llegar</div>
       <h1>Lo que quieres, <span>más cerca con Izzy.</span></h1>
       <p class="lead">Estamos construyendo una nueva forma de encontrar eso que tanto quieres. Tecnología, cuidado personal y mucho más, todo en un solo lugar.</p>
+
+      <button type="button" class="club" data-open-prereg aria-label="Abrir el pre registro del Club Izzy">
+        <span class="gift" aria-hidden="true">🎁</span>
+        <span class="t">
+          <small>CLUB IZZY</small>
+          <b id="club-title">Sé de los primeros 50 y recibe Q 25 en tu primera compra</b>
+          <span class="club-sub" id="club-sub"></span>
+          <span class="mini">
+            <span>Q 25 · quedan <strong data-q25-left>–</strong><i data-w25></i></span>
+            <span>Q 15 · quedan <strong data-q15-left>–</strong><i data-w15></i></span>
+          </span>
+        </span>
+        <span class="go" aria-hidden="true">→</span>
+      </button>
 
       <div class="quote">
         <span class="ico">📦</span>
@@ -153,7 +168,8 @@ footer strong{color:var(--deep)}
         <div class="track"></div><div class="track inner"></div>
         <span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">✦</span>
 
-        <div class="box" aria-hidden="true">
+        <button type="button" class="club-hint" data-open-prereg>¡Ábrela! 🎁</button>
+        <div class="box" data-open-prereg role="button" tabindex="0" aria-label="Abrir el pre registro del Club Izzy">
           <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a47bf5"/><stop offset="1" stop-color="#5a2fb8"/></linearGradient>
@@ -220,5 +236,97 @@ footer strong{color:var(--deep)}
     <span>Compras que te acercan a lo que quieres.</span>
   </footer>
 </div>
+
+<div class="pr" id="pr" hidden>
+  <div class="pr-backdrop" data-close></div>
+  <div class="pr-sheet" role="dialog" aria-modal="true" aria-labelledby="pr-title">
+    <div class="pr-grab" aria-hidden="true"></div>
+    <button type="button" class="pr-x" data-close aria-label="Cerrar">×</button>
+
+    <div class="pr-top"><span class="pr-club">CLUB IZZY</span><span class="pr-gift" id="pr-gift">Q 25 de regalo</span></div>
+    <h2 class="pr-title" id="pr-title">Sé de los primeros 50 y recibe <b>Q 25</b> para tu primera compra</h2>
+
+    <div class="pr-info">
+      <div class="pr-tiers">
+        <div class="pr-tier on"><b>Q 25</b><span>Registros 1 al 50</span></div>
+        <div class="pr-tier"><b>Q 15</b><span>Registros 51 al 100</span></div>
+      </div>
+      <div class="pr-meter"><span id="pr-meter-label">Cupones de Q 25</span><span>Quedan <b id="pr-left">–</b> de <b id="pr-total">50</b></span></div>
+      <div class="pr-bar"><div id="pr-bar"></div></div>
+      <div class="pr-note" id="pr-soldnote" style="display:none">Los cupones se agotaron, pero puedes crear tu acceso y te avisaremos del lanzamiento.</div>
+    </div>
+
+    <div class="pr-dots" aria-hidden="true"><i class="cur"></i><i></i><i></i><i></i></div>
+
+    <form id="pr-form" novalidate autocomplete="on">
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <section class="pr-step on" data-step="1">
+        <h3>Cuéntanos quién eres</h3>
+        <p>Con estos datos creamos tu cuenta de Izzy.</p>
+        <div class="row2">
+          <label class="f">Nombre<input type="text" name="firstName" autocomplete="given-name" placeholder="Ej. María"><span class="err"></span></label>
+          <label class="f">Apellido<input type="text" name="lastName" autocomplete="family-name" placeholder="Ej. López"><span class="err"></span></label>
+        </div>
+        <label class="f">Celular <em>(te enviaremos un código por SMS)</em>
+          <span class="phone"><b>+502</b><input type="tel" name="phone" inputmode="tel" autocomplete="tel-national" placeholder="5555 1234"></span><span class="err"></span></label>
+        <label class="f">Correo<input type="email" name="email" autocomplete="email" placeholder="tu@correo.com"><span class="err"></span></label>
+        <button type="button" class="pr-btn" data-next="1">Continuar →</button>
+      </section>
+
+      <section class="pr-step" data-step="2">
+        <h3>¿Qué te interesa?</h3>
+        <p>Opcional: así te avisamos primero de lo que te gusta.</p>
+        <div class="chips">
+          <button type="button" class="chip-i" data-k="glow">Glow</button><button type="button" class="chip-i" data-k="tecnologia">Tecnología</button>
+          <button type="button" class="chip-i" data-k="mini">Mini</button><button type="button" class="chip-i" data-k="mascotas">Mascotas</button>
+          <button type="button" class="chip-i" data-k="moda">Moda</button><button type="button" class="chip-i" data-k="hogar">Hogar</button>
+        </div>
+        <div class="row2">
+          <label class="f">Departamento <em>(opcional)</em><select name="department"><option value="">Elige</option><option>Alta Verapaz</option><option>Baja Verapaz</option><option>Chimaltenango</option><option>Chiquimula</option><option>El Progreso</option><option>Escuintla</option><option>Guatemala</option><option>Huehuetenango</option><option>Izabal</option><option>Jalapa</option><option>Jutiapa</option><option>Petén</option><option>Quetzaltenango</option><option>Quiché</option><option>Retalhuleu</option><option>Sacatepéquez</option><option>San Marcos</option><option>Santa Rosa</option><option>Sololá</option><option>Suchitepéquez</option><option>Totonicapán</option><option>Zacapa</option></select></label>
+          <label class="f">¿Cómo nos conociste? <em>(opcional)</em><select name="source"><option value="">Elige</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="facebook">Facebook</option><option value="whatsapp">WhatsApp</option><option value="amigo">Un amigo</option><option value="otro">Otro</option></select></label>
+        </div>
+        <button type="button" class="pr-btn" data-next="2">Continuar →</button>
+        <button type="button" class="pr-btn ghost" data-back="1">← Atrás</button>
+      </section>
+
+      <section class="pr-step" data-step="3">
+        <h3>Crea tu acceso</h3>
+        <p>Esta será tu contraseña cuando abramos la tienda.</p>
+        <div class="pr-alert" role="alert"></div>
+        <label class="f pw">Contraseña<input type="password" name="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres"><button type="button" id="pw-eye" aria-label="Mostrar contraseña">👁️</button><span class="err"></span></label>
+        <div class="meter" id="pw-meter"><i></i></div>
+        <label class="f">Repite la contraseña<input type="password" name="confirm" autocomplete="new-password"><span class="err"></span></label>
+        <label class="chk"><input type="checkbox" name="acceptsTerms"><span><b>Acepto los <a href="/terminos-preregistro#terminos" target="_blank" rel="noopener">Términos y condiciones</a> de la dinámica</b> y la <a href="/terminos-preregistro#privacidad" target="_blank" rel="noopener">Política de privacidad</a>, y confirmo que soy mayor de 18 años. <em>(Obligatorio)</em><span class="err">Debes aceptar los términos y condiciones para continuar</span></span></label>
+        <label class="chk"><input type="checkbox" name="acceptsMarketing"><span>Quiero recibir ofertas y novedades por WhatsApp y correo.</span></label>
+        <div id="pr-ts"></div>
+        <button type="button" class="pr-btn" id="pr-send" data-next="3"><span class="lbl" id="pr-send-label">Quiero mi cupón de Q 25</span></button>
+        <button type="button" class="pr-btn ghost" data-back="2">← Atrás</button>
+        <p class="pr-small">Válido en una compra desde Q 300 durante los primeros 30 días de la tienda. Uno por persona. No aplica al envío ni se combina con otras promociones.</p>
+      </section>
+
+      <section class="pr-step" data-step="4">
+        <h3>Verifica tu celular</h3>
+        <p>Enviamos un código de 6 dígitos por SMS al <b id="otp-phone">+502 ••••</b>.</p>
+        <div class="pr-alert" role="alert"></div>
+        <div class="otp" aria-label="Código de 6 dígitos">
+          <input inputmode="numeric" autocomplete="one-time-code" maxlength="1" aria-label="Dígito 1"><input inputmode="numeric" maxlength="1" aria-label="Dígito 2"><input inputmode="numeric" maxlength="1" aria-label="Dígito 3"><input inputmode="numeric" maxlength="1" aria-label="Dígito 4"><input inputmode="numeric" maxlength="1" aria-label="Dígito 5"><input inputmode="numeric" maxlength="1" aria-label="Dígito 6">
+        </div>
+        <div class="otp-meta"><span id="otp-expire"></span><button type="button" class="pr-link" id="otp-resend" disabled>Reenviar código</button></div>
+        <button type="button" class="pr-btn ghost" data-back="1">← Cambiar mis datos</button>
+      </section>
+
+      <section class="pr-step pr-done" data-step="5">
+        <h3 id="ok-h">¡Listo, <span id="ok-name"></span>! 🎉</h3>
+        <div class="ticket" id="pr-ticket"></div>
+        <p id="ok-text"></p>
+        <button type="button" class="pr-btn wa" id="ok-share">Invita a una amiga</button>
+        <button type="button" class="pr-btn ghost" id="ok-close">Cerrar</button>
+      </section>
+    </form>
+  </div>
+</div>
+<canvas id="pr-fx"></canvas>
+<script src="preregistro.js" defer></script>
 </body>
 </html>

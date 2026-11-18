@@ -1,0 +1,7 @@
+.git
+**/node_modules
+**/.env
+Logos
+Izzy_com_gt_proximamente_logo_actualizado.html
+server/test
+server/dev-local.js
