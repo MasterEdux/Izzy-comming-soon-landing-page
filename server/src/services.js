@@ -45,27 +45,105 @@ function mailer() {
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 
-export function welcomeEmail({ firstName }) {
-  const terms = `${config.siteUrl}/terminos-preregistro`
+export function welcomeEmail({ firstName, tier = null, position = null }) {
+  const site = config.siteUrl
+  const terms = `${site}/terminos-preregistro`
+  const img = (name) => `${site}/email/${name}`
   const name = esc(firstName)
+  const amount = tier ? tier.replace('Q', '') : null
+
+  const links = {
+    instagram: 'https://www.instagram.com/izzy___com/',
+    tiktok: 'https://www.tiktok.com/@izzy.com.gt',
+    facebook: 'https://www.facebook.com/profile.php?id=61590540479698',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=50246353422',
+    web: 'https://www.izzy.com.gt',
+  }
+  const step = (icon, title, text) => `
+<tr><td style="padding:0 0 16px">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>
+    <td width="60" valign="top"><img src="${img(`icon-${icon}.png`)}" width="48" height="48" alt="" style="display:block;border-radius:13px"></td>
+    <td valign="middle" style="font-family:Arial,Helvetica,sans-serif">
+      <div style="font-size:16px;font-weight:800;color:#10182d;line-height:1.3">${title}</div>
+      <div style="font-size:14px;color:#4f4a66;line-height:1.5;padding-top:2px">${text}</div>
+    </td>
+  </tr></table>
+</td></tr>`
+  const social = (icon, label) => `<td style="padding:0 5px"><a href="${links[icon]}" target="_blank"><img src="${img(`icon-${icon}.png`)}" width="44" height="44" alt="${label}" style="display:block;border-radius:12px"></a></td>`
+
+  const ticket = tier
+    ? `
+<tr><td style="padding:6px 0 22px">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#5125ae;background-image:linear-gradient(135deg,#7c4bdc,#4a2299);border:2.5px solid #10182d;border-radius:20px">
+    <tr>
+      <td width="84" align="center" style="padding:18px 0 18px 18px"><img src="${img('icon-gift.png')}" width="64" height="64" alt="" style="display:block;border-radius:18px;border:2.5px solid #10182d"></td>
+      <td style="padding:18px;font-family:Arial,Helvetica,sans-serif;color:#ffffff">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#e9defe">TU CUPÓN DE BIENVENIDA</div>
+        <div style="font-size:38px;font-weight:900;letter-spacing:-1px;color:#fbbf24;line-height:1.1">Q ${amount}</div>
+        <div style="font-size:13px;color:#e9defe">Para tu primera compra · Registro #${position}</div>
+        <div style="font-size:13px;font-weight:800;color:#ffffff;padding-top:6px">Te lo enviaremos el día del lanzamiento.</div>
+      </td>
+    </tr>
+  </table>
+</td></tr>`
+    : ''
+
+  const couponStep = tier
+    ? step('gift', 'Tu cupón de bienvenida', `Te enviaremos tu cupón de <b>Q ${amount}</b> el día del lanzamiento, para tu primera compra.`)
+    : step('gift', 'Lanzamiento cerca', 'Los cupones de lanzamiento ya se agotaron, pero tu acceso quedó listo para cuando abramos.')
+
+  const text =
+    `¡Gracias por inscribirte, ${firstName}!\n\n` +
+    `Tu cuenta en Izzy.com.gt ya quedó creada y tu celular está verificado. Estás dentro del Club Izzy.\n` +
+    (tier ? `Tu cupón de bienvenida: Q ${amount} para tu primera compra (registro #${position}). Te lo enviaremos el día del lanzamiento.\n` : '') +
+    `\nTe avisaremos por correo en cuanto la tienda esté en línea.\n\n` +
+    `Términos y condiciones de la actividad:\n${terms}\n\n` +
+    `Síguenos: ${links.instagram}\n\nEquipo Izzy · ${site}`
+
   return {
     subject: '¡Gracias por inscribirte en Izzy!',
-    text:
-      `Hola ${firstName},\n\n` +
-      `Gracias por inscribirte en el pre registro de Izzy.com.gt. Tu cuenta ya quedó creada y te avisaremos cuando lancemos la página.\n\n` +
-      `Puedes consultar los términos y condiciones de la actividad aquí:\n${terms}\n\n` +
-      `Equipo Izzy\n${config.siteUrl}`,
-    html: `<!doctype html><html><body style="margin:0;background:#e6dcfa;font-family:Arial,Helvetica,sans-serif;color:#10182d">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:28px 14px">
-<table role="presentation" width="100%" style="max-width:520px;background:#ffffff;border-radius:20px;overflow:hidden">
-<tr><td style="background:#6d3bd1;padding:26px;text-align:center;color:#fff;font-size:28px;font-weight:800;letter-spacing:-1px">izzy</td></tr>
-<tr><td style="padding:28px 26px;line-height:1.6;font-size:16px">
-<h1 style="margin:0 0 12px;font-size:22px">¡Gracias por inscribirte, ${name}!</h1>
-<p style="margin:0 0 14px">Tu cuenta en Izzy.com.gt ya quedó creada. Te avisaremos por correo en cuanto lancemos la página.</p>
-<p style="margin:0 0 22px">Puedes consultar los términos y condiciones de la actividad aquí:</p>
-<p style="margin:0 0 24px"><a href="${terms}" style="display:inline-block;background:#6d3bd1;color:#fff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:12px">Ver términos y condiciones</a></p>
-<p style="margin:0;color:#4f4a66;font-size:14px">Equipo Izzy · <a href="${config.siteUrl}" style="color:#4a2299">izzy.com.gt</a></p>
-</td></tr></table></td></tr></table></body></html>`,
+    text,
+    html: `<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Gracias por inscribirte en Izzy</title></head>
+<body style="margin:0;padding:0;background:#d3c3f4;-webkit-text-size-adjust:100%">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#d3c3f4">Tu cuenta ya quedó creada. Te avisaremos en cuanto abramos la tienda.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#d3c3f4"><tr><td align="center" style="padding:26px 12px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:640px">
+<tr><td style="background:#ffffff;border:2.5px solid #10182d;border-radius:26px;overflow:hidden;box-shadow:6px 6px 0 #10182d">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td><img src="${img('header.gif')}" width="640" alt="izzy" style="display:block;width:100%;height:auto;border:0"></td></tr>
+    <tr><td style="padding:28px 26px 8px;font-family:Arial,Helvetica,sans-serif">
+      <span style="display:inline-block;background:#dcfce7;border:1px solid #86efac;color:#14532d;font-size:12px;font-weight:800;letter-spacing:.08em;padding:8px 14px;border-radius:999px">&#10003;&nbsp; PRE REGISTRO CONFIRMADO</span>
+      <h1 style="margin:16px 0 10px;font-size:28px;line-height:1.15;letter-spacing:-1px;color:#10182d">¡Gracias por inscribirte, <span style="color:#6d3bd1">${name}</span>!</h1>
+      <p style="margin:0 0 20px;font-size:16px;line-height:1.6;color:#4f4a66">Tu cuenta en Izzy.com.gt ya quedó creada y tu celular está verificado. Ya eres parte del <b style="color:#10182d">Club Izzy</b>.</p>
+    </td></tr>
+    <tr><td style="padding:0 26px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      ${ticket}
+      ${step('user', 'Tu cuenta ya está lista', 'Cuando abramos la tienda, inicia sesión con tu correo y la contraseña que elegiste.')}
+      ${step('bell', 'Te avisaremos del lanzamiento', 'Recibirás un correo en cuanto la tienda esté en línea.')}
+      ${couponStep}
+    </table></td></tr>
+    <tr><td align="center" style="padding:8px 26px 26px;font-family:Arial,Helvetica,sans-serif">
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+        <td align="center" style="background:#6d3bd1;border:2.5px solid #10182d;border-radius:16px;box-shadow:4px 4px 0 #10182d">
+          <a href="${terms}" target="_blank" style="display:inline-block;padding:15px 26px;font-size:16px;font-weight:800;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif">Ver términos y condiciones&nbsp; &rarr;</a>
+        </td>
+      </tr></table>
+      <p style="margin:14px 0 0;font-size:12px;color:#6b6788">Lee las reglas de la actividad cuando quieras.</p>
+    </td></tr>
+    <tr><td align="center" style="padding:0 26px 24px;font-family:Arial,Helvetica,sans-serif">
+      <div style="border-top:1.5px dashed #cdbdf2;padding-top:20px;font-size:13px;font-weight:800;letter-spacing:.1em;color:#4a2299">SÍGUENOS</div>
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:12px"><tr>
+        ${social('instagram', 'Instagram')}${social('tiktok', 'TikTok')}${social('facebook', 'Facebook')}${social('whatsapp', 'WhatsApp')}${social('web', 'Sitio web')}
+      </tr></table>
+    </td></tr>
+    <tr><td align="center" style="background:#fbbf24;border-top:2.5px solid #10182d;padding:13px 16px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:900;letter-spacing:.16em;color:#10182d">MUY PRONTO EN LÍNEA &nbsp;·&nbsp; IZZY.COM.GT</td></tr>
+  </table>
+</td></tr>
+<tr><td align="center" style="padding:18px 10px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#4f4a66">
+  Recibes este correo porque te pre registraste en <a href="${site}" style="color:#4a2299;font-weight:700">Izzy.com.gt</a>.
+</td></tr>
+</table></td></tr></table></body></html>`,
   }
 }
 

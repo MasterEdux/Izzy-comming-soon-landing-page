@@ -205,3 +205,23 @@ test('JS y CSS se revalidan (ETag) para que las actualizaciones lleguen', async 
   const b = await app.inject({ url: '/preregistro.js', headers: { 'if-none-match': a.headers.etag } })
   assert.equal(b.statusCode, 304)
 })
+
+test('el correo de bienvenida escapa el nombre y cambia según el cupón', async () => {
+  const { welcomeEmail } = await import('../src/services.js')
+  const con = welcomeEmail({ firstName: 'Ana <b>', tier: 'Q25', position: 7 })
+  assert.ok(con.html.includes('Ana &lt;b&gt;'))
+  assert.ok(con.html.includes('Q 25') && con.html.includes('Registro #7'))
+  assert.ok(con.html.includes('/email/header.gif') && con.html.includes('/terminos-preregistro'))
+  const sin = welcomeEmail({ firstName: 'Luis', tier: null, position: 120 })
+  assert.ok(sin.html.includes('agotaron') && !sin.html.includes('Registro #'))
+})
+
+test('el correo sabe si el cupón es de Q25 o de Q15 según la posición', async () => {
+  const { welcomeEmail } = await import('../src/services.js')
+  const { tierFor } = await import('../src/config.js')
+  const mail = (position) => welcomeEmail({ firstName: 'Ana', tier: tierFor(position), position }).html
+  for (const pos of [1, 50]) assert.ok(mail(pos).includes('Q 25') && !mail(pos).includes('Q 15'), 'posición ' + pos)
+  for (const pos of [51, 100]) assert.ok(mail(pos).includes('Q 15') && !mail(pos).includes('Q 25'), 'posición ' + pos)
+  assert.ok(!mail(101).includes('Q 25') && !mail(101).includes('Q 15') && mail(101).includes('agotaron'))
+  assert.ok(mail(1).includes('el día del lanzamiento') && !mail(1).includes('Compras que te acercan'))
+})

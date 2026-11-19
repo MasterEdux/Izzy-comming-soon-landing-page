@@ -185,7 +185,7 @@ export function buildApp({ db, logger = false } = {}) {
     // Correo y hoja de cálculo: no bloquean ni tumban el registro.
     const { firstName, lastName, email } = payload.data
     const tier = result.tier
-    sendEmail(email, welcomeEmail({ firstName })).catch((e) => console.error('[Correo] error:', e.message))
+    sendEmail(email, welcomeEmail({ firstName, tier, position: result.position })).catch((e) => console.error('[Correo] error:', e.message))
     pushToSheet({
       fecha: new Date().toISOString(),
       posicion: result.position,
