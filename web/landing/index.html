@@ -256,7 +256,7 @@ footer strong{color:var(--deep)}
       <div class="pr-note" id="pr-soldnote" style="display:none">Los cupones se agotaron, pero puedes crear tu acceso y te avisaremos del lanzamiento.</div>
     </div>
 
-    <div class="pr-dots" aria-hidden="true"><i class="cur"></i><i></i><i></i><i></i></div>
+    <div class="pr-dots" aria-hidden="true"><i class="cur"></i><i></i><i></i></div>
 
     <form id="pr-form" novalidate autocomplete="on">
       <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -274,23 +274,8 @@ footer strong{color:var(--deep)}
         <button type="button" class="pr-btn" data-next="1">Continuar →</button>
       </section>
 
-      <section class="pr-step" data-step="2">
-        <h3>¿Qué te interesa?</h3>
-        <p>Opcional: así te avisamos primero de lo que te gusta.</p>
-        <div class="chips">
-          <button type="button" class="chip-i" data-k="glow">Glow</button><button type="button" class="chip-i" data-k="tecnologia">Tecnología</button>
-          <button type="button" class="chip-i" data-k="mini">Mini</button><button type="button" class="chip-i" data-k="mascotas">Mascotas</button>
-          <button type="button" class="chip-i" data-k="moda">Moda</button><button type="button" class="chip-i" data-k="hogar">Hogar</button>
-        </div>
-        <div class="row2">
-          <label class="f">Departamento <em>(opcional)</em><select name="department"><option value="">Elige</option><option>Alta Verapaz</option><option>Baja Verapaz</option><option>Chimaltenango</option><option>Chiquimula</option><option>El Progreso</option><option>Escuintla</option><option>Guatemala</option><option>Huehuetenango</option><option>Izabal</option><option>Jalapa</option><option>Jutiapa</option><option>Petén</option><option>Quetzaltenango</option><option>Quiché</option><option>Retalhuleu</option><option>Sacatepéquez</option><option>San Marcos</option><option>Santa Rosa</option><option>Sololá</option><option>Suchitepéquez</option><option>Totonicapán</option><option>Zacapa</option></select></label>
-          <label class="f">¿Cómo nos conociste? <em>(opcional)</em><select name="source"><option value="">Elige</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="facebook">Facebook</option><option value="whatsapp">WhatsApp</option><option value="amigo">Un amigo</option><option value="otro">Otro</option></select></label>
-        </div>
-        <button type="button" class="pr-btn" data-next="2">Continuar →</button>
-        <button type="button" class="pr-btn ghost" data-back="1">← Atrás</button>
-      </section>
 
-      <section class="pr-step" data-step="3">
+      <section class="pr-step" data-step="2">
         <h3>Crea tu acceso</h3>
         <p>Esta será tu contraseña cuando abramos la tienda.</p>
         <div class="pr-alert" role="alert"></div>
@@ -300,12 +285,12 @@ footer strong{color:var(--deep)}
         <label class="chk"><input type="checkbox" name="acceptsTerms"><span><b>Acepto los <a href="/terminos-preregistro#terminos" target="_blank" rel="noopener">Términos y condiciones</a> de la dinámica</b> y la <a href="/terminos-preregistro#privacidad" target="_blank" rel="noopener">Política de privacidad</a>, y confirmo que soy mayor de 18 años. <em>(Obligatorio)</em><span class="err">Debes aceptar los términos y condiciones para continuar</span></span></label>
         <label class="chk"><input type="checkbox" name="acceptsMarketing"><span>Quiero recibir ofertas y novedades por WhatsApp y correo.</span></label>
         <div id="pr-ts"></div>
-        <button type="button" class="pr-btn" id="pr-send" data-next="3"><span class="lbl" id="pr-send-label">Quiero mi cupón de Q 25</span></button>
-        <button type="button" class="pr-btn ghost" data-back="2">← Atrás</button>
+        <button type="button" class="pr-btn" id="pr-send" data-next="2"><span class="lbl" id="pr-send-label">Quiero mi cupón de Q 25</span></button>
+        <button type="button" class="pr-btn ghost" data-back="1">← Atrás</button>
         <p class="pr-small">Válido en una compra desde Q 300 durante los primeros 30 días de la tienda. Uno por persona. No aplica al envío ni se combina con otras promociones.</p>
       </section>
 
-      <section class="pr-step" data-step="4">
+      <section class="pr-step" data-step="3">
         <h3>Verifica tu celular</h3>
         <p>Enviamos un código de 6 dígitos por SMS al <b id="otp-phone">+502 ••••</b>.</p>
         <div class="pr-alert" role="alert"></div>
@@ -316,7 +301,7 @@ footer strong{color:var(--deep)}
         <button type="button" class="pr-btn ghost" data-back="1">← Cambiar mis datos</button>
       </section>
 
-      <section class="pr-step pr-done" data-step="5">
+      <section class="pr-step pr-done" data-step="4">
         <h3 id="ok-h">¡Listo, <span id="ok-name"></span>! 🎉</h3>
         <div class="ticket" id="pr-ticket"></div>
         <p id="ok-text"></p>

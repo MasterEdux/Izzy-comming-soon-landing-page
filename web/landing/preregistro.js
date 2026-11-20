@@ -9,7 +9,7 @@
   var step = 1, token = '', phoneMasked = '', lastOpener = null
   var timers = { resend: 0, expire: 0 }
   var form = $('#pr-form')
-  var TOTAL_STEPS = 4
+  var TOTAL_STEPS = 3
 
   function buzz(n) { try { navigator.vibrate && navigator.vibrate(n || 12) } catch (e) {} }
   function api(path, body) {
@@ -89,7 +89,7 @@
     $('#ok-h').innerHTML = '¡Gracias por registrarte, ' + reg.name.replace(/[<>&]/g, '') + '! 🎉'
     $('#pr-ticket').innerHTML = ticketHtml(reg)
     $('#ok-text').textContent = 'Ya estás dentro del Club Izzy. Te avisaremos por correo cuando abramos la tienda' + (reg.tier ? ' y te enviaremos tu cupón.' : '.')
-    show(5)
+    show(4)
   }
   api('/api/preregistro/yo').then(function (r) {
     if (r && r.registered) { var info = { name: r.name, position: r.position, tier: r.tier }; saveLocal(info); applyRegistered(info) }
@@ -105,7 +105,7 @@
     document.body.classList.add('pr-lock'); buzz(10)
     refresh()
     if (reg) renderRegistered()
-    setTimeout(function () { var f = $('.pr-step.on input, .pr-step.on button.chip-i'); if (f && window.innerWidth > 700) f.focus() }, 450)
+    setTimeout(function () { var f = $('.pr-step.on input'); if (f && window.innerWidth > 700) f.focus() }, 450)
   }
   function close() {
     root.classList.remove('open'); document.body.classList.remove('pr-lock')
@@ -167,13 +167,13 @@
   function next(from) {
     buzz(8)
     if (from === 1 && !validate1()) return buzz([20, 40, 20])
-    if (from === 3 && !validate3()) return buzz([20, 40, 20])
-    if (from === 3) return sendCode()
+    if (from === 2 && !validate3()) return buzz([20, 40, 20])
+    if (from === 2) return sendCode()
     show(from + 1)
   }
   $$('[data-next]').forEach(function (b) { b.addEventListener('click', function () { next(+b.getAttribute('data-next')) }) })
   $$('[data-back]').forEach(function (b) { b.addEventListener('click', function () { show(+b.getAttribute('data-back'), true) }) })
-  form.addEventListener('submit', function (e) { e.preventDefault(); if (step <= 3) next(step) })
+  form.addEventListener('submit', function (e) { e.preventDefault(); if (step <= 2) next(step) })
   $$('input', form).forEach(function (i) { i.addEventListener('input', function () { var w = i.closest('.f, .chk'); if (w) w.classList.remove('bad') }) })
 
   // formato de teléfono "5555 1234"
@@ -181,11 +181,6 @@
     var d = form.phone.value.replace(/\D/g, '').replace(/^502(?=\d{8}$)/, '').slice(0, 8)
     form.phone.value = d.length > 4 ? d.slice(0, 4) + ' ' + d.slice(4) : d
   })
-  // intereses
-  var interests = {}
-  $$('.chip-i').forEach(function (c) { c.addEventListener('click', function () {
-    var k = c.getAttribute('data-k'); interests[k] = !interests[k]; c.classList.toggle('on', interests[k]); buzz(6)
-  }) })
   // contraseña: mostrar y fuerza
   $('#pw-eye').addEventListener('click', function () {
     var t = form.password.type === 'password'; form.password.type = t ? 'text' : 'password'; form.confirm.type = form.password.type
@@ -218,13 +213,10 @@
     if (sending) return; sending = true
     var btn = $('#pr-send'); alertBox('')
     setBusy(btn, true, 'Enviando código…')
-    var selects = { department: form.department.value, source: form.source.value }
     api('/api/preregistro/enviar-codigo', {
       firstName: form.firstName.value.trim(), lastName: form.lastName.value.trim(), email: form.email.value.trim(),
       phone: phoneDigits(), password: form.password.value, confirm: form.confirm.value,
       acceptsTerms: form.acceptsTerms.checked, acceptsMarketing: form.acceptsMarketing.checked,
-      department: selects.department, source: selects.source,
-      interests: Object.keys(interests).filter(function (k) { return interests[k] }),
       turnstileToken: window.turnstile && tsId !== null ? window.turnstile.getResponse(tsId) : '',
       website: form.website.value,
     }).then(function (r) {
@@ -233,7 +225,7 @@
       if (!r.ok) { buzz([30, 40, 30]); return alertBox(r.message || 'No pudimos continuar.') }
       token = r.token; phoneMasked = r.phoneMasked
       $('#otp-phone').textContent = phoneMasked
-      show(4); startTimers(r.resendIn, r.expiresIn); clearOtp(); buzz(15)
+      show(3); startTimers(r.resendIn, r.expiresIn); clearOtp(); buzz(15)
     })
   }
 
@@ -273,7 +265,7 @@
   $('#otp-resend').addEventListener('click', function () {
     var b = this; b.disabled = true; alertBox('')
     api('/api/preregistro/reenviar', { token: token }).then(function (r) {
-      if (!r.ok) { alertBox(r.message); if (r.restart) { setTimeout(function () { show(3, true) }, 1600) } else { b.disabled = false } return }
+      if (!r.ok) { alertBox(r.message); if (r.restart) { setTimeout(function () { show(2, true) }, 1600) } else { b.disabled = false } return }
       token = r.token; startTimers(r.resendIn, r.expiresIn); clearOtp(); buzz(12)
     })
   })
@@ -285,7 +277,7 @@
       verifying = false
       if (!r.ok) {
         buzz([30, 40, 30]); $('.otp').classList.add('bad'); alertBox(r.message || 'Código incorrecto.')
-        if (r.restart) { setTimeout(function () { show(3, true) }, 1800) } else { setTimeout(function () { otpInputs.forEach(function (i) { i.value = '' }); $('.otp').classList.remove('bad'); otpInputs[0].focus() }, 500) }
+        if (r.restart) { setTimeout(function () { show(2, true) }, 1800) } else { setTimeout(function () { otpInputs.forEach(function (i) { i.value = '' }); $('.otp').classList.remove('bad'); otpInputs[0].focus() }, 500) }
         return
       }
       clearInterval(timers.resend); clearInterval(timers.expire)
@@ -306,9 +298,9 @@
       t.innerHTML = '<small>TU ACCESO ESTÁ LISTO</small><span class="big" style="font-size:2.2rem">¡Bienvenid@!</span><small>REGISTRO #' + r.position + '</small>'
       $('#ok-text').textContent = 'Los cupones de lanzamiento ya se agotaron, pero tu cuenta quedó creada y te avisaremos en cuanto abramos la tienda.'
     }
-    show(5); buzz([20, 60, 20, 60, 40]); confetti()
+    show(4); buzz([20, 60, 20, 60, 40]); confetti()
     var info = { name: name, position: r.position, tier: r.tier }; saveLocal(info); applyRegistered(info)
-    form.reset(); interests = {}; $$('.chip-i').forEach(function (c) { c.classList.remove('on') }); token = ''
+    form.reset(); token = ''
   }
   var cv = $('#pr-fx'), cx = cv.getContext('2d'), ps = [], raf = 0
   function sizeCv() { cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio }

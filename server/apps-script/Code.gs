@@ -13,8 +13,7 @@
  * Cada fila queda con su cupón (Q25 o Q15) y pintada de color para verlo de un vistazo.
  */
 var SHEET_NAME = 'Pre registros';
-var HEADERS = ['Fecha', 'Posición', 'Cupón', 'Nombre', 'Apellido', 'Teléfono', 'Correo',
-               'Acepta correos', 'Departamento', 'Intereses', 'Origen'];
+var HEADERS = ['Fecha', 'Posición', 'Cupón', 'Nombre', 'Apellido', 'Teléfono', 'Correo', 'Acepta correos'];
 var COLORS = { 'Q25': '#dcfce7', 'Q15': '#e9ddff', 'Sin cupón': '#f3f4f6' };
 
 function doPost(e) {
@@ -37,7 +36,7 @@ function doPost(e) {
 
     var fecha = Utilities.formatDate(new Date(data.fecha), 'America/Guatemala', 'yyyy-MM-dd HH:mm:ss');
     var row = [fecha, data.posicion, data.cupon, data.nombre, data.apellido, "'" + data.telefono,
-               data.correo, data.aceptaCorreos, data.departamento, data.intereses, data.origen];
+               data.correo, data.aceptaCorreos];
     sheet.appendRow(row);
     var last = sheet.getLastRow();
     sheet.getRange(last, 3).setBackground(COLORS[data.cupon] || '#ffffff').setFontWeight('bold');
